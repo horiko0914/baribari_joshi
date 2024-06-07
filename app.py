@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 from openai import OpenAI
 import PyPDF2
 
+USE_LangChain = True
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -18,6 +20,8 @@ def analyze_pdf():
     text = ""
     for page in reader.pages:
         text += page.extract_text()
+
+    #USE_LangChain https://zenn.dev/pipon_tech_blog/articles/08f959bab19c97
 
     # ChatGPTに送信
     client = OpenAI()
