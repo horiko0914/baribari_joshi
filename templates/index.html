@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>バリバリ上司による資料確認</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .logo {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">バリバリ上司による資料確認</h1>
+        <img src="/static/logo.png" alt="logo" class="logo">
+        <label for="pdf_file">＜　おい！早く資料（PDF）を見せてみろ</label>
+        <form action="/analyze" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="pdf_file">　</label>
+                <input type="file" class="form-control-file" id="pdf_file" name="pdf_file" accept=".pdf" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">恐る恐る、資料を渡す</button>
+        </form>
+        
+        {% if response %}
+            <div class="card bg-dark text-white mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">結果:</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ response | replace('\n', '<br>') | safe }}</p>
+                </div>
+            </div>
+            <form action="/" method="get">
+                <button type="submit" class="btn btn-secondary">リセット</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
